@@ -5,7 +5,7 @@ from torchvision.models.feature_extraction import get_graph_node_names
 from torchvision.models.feature_extraction import create_feature_extractor
 
 app = Flask(__name__)
-imagenet_class_index = json.load(open('imagenet_class_index.json'))
+imagenet_class_index = json.load(open('pytorch-api/imagenet_class_index.json'))
 model = densenet121(weights=DenseNet121_Weights.DEFAULT)
 model.eval()
 
