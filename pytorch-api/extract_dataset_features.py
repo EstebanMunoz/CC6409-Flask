@@ -42,7 +42,7 @@ class CatalogImages(Dataset):
 
 
 if __name__ == '__main__':
-    Catalog = CatalogImages('/media/disco-compartido/mc4/catalogo', transform_image)
+    Catalog = CatalogImages('/home/usuario/git-repos/CC6409-Flask/pytorch-api/catalogo', transform_image)
     dataset_features = get_dataset_features(Catalog, batch_size=460)
     np.save('/home/usuario/git-repos/CC6409-Flask/classifier-app/dataset_features', dataset_features)
     with open('/home/usuario/git-repos/CC6409-Flask/classifier-app/img_labels.pickle', 'wb') as output:

@@ -1,12 +1,12 @@
 import json
-from torchvision import models
 from flask import Flask
+from torchvision.models import densenet121, DenseNet121_Weights
 from torchvision.models.feature_extraction import get_graph_node_names
 from torchvision.models.feature_extraction import create_feature_extractor
 
 app = Flask(__name__)
-imagenet_class_index = json.load(open('imagenet_class_index.json'))
-model = models.densenet121(pretrained=True)
+imagenet_class_index = json.load(open('/home/usuario/git-repos/CC6409-Flask/pytorch-api/imagenet_class_index.json'))
+model = densenet121(weights=DenseNet121_Weights.DEFAULT)
 model.eval()
 
 # Agregaremos un extractor a la red para sacar deep features.
