@@ -14,9 +14,6 @@ def predict():
 
         # Obtenemos las features
         deep_features = get_features(image_bytes=img_bytes)
-        # deep_features es un diccionario bloque:features, pero solo usamos 1 bloque
-        # (o sea, hay una sola llave).
-        deep_features = list(deep_features.values())[0]
         # print(deep_features)
 
         # Las pasamos a bytes usando un buffer I/O
@@ -26,5 +23,5 @@ def predict():
         return buff  # return buff.read()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(port=5001)

@@ -16,4 +16,4 @@ nodes, _ = get_graph_node_names(model)
 
 # En return_nodes debemos indicar a qué componentes les queremos agregar un extractor.
 feature_extractor = create_feature_extractor(
-    model, return_nodes=['features.denseblock4.denselayer15.conv1'])
+    model, return_nodes=['adaptive_avg_pool2d'])
