@@ -16,7 +16,6 @@ load_dotenv()
 
 UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER')
 CATALOG_PATH = os.getenv('CATALOG_PATH')
-print(UPLOAD_FOLDER)
 
 
 @app.route('/')
