@@ -14,7 +14,9 @@ from utils import allowed_file, get_closest_match
 
 load_dotenv()
 
+UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER')
 CATALOG_PATH = os.getenv('CATALOG_PATH')
+print(UPLOAD_FOLDER)
 
 
 @app.route('/')
@@ -54,7 +56,7 @@ def index_image():
 
 @app.route('/display/<filename>')
 def display_image(filename):
-    return redirect(url_for('static', filename='uploads/' + filename), code=301)
+    return send_from_directory(UPLOAD_FOLDER, filename)
 
 
 @app.route('/catalogo/<filename>')
