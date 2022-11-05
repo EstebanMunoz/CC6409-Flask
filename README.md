@@ -2,15 +2,15 @@
 
 Ejemplo de deploy ML en Flask para el curso CC6409
 
-El código para la API de Flask (carpeta `pytorch-api`) forma parte de un tutorial propiedad de Pytorch [Link al tutorial](https://pytorch.org/tutorials/intermediate/flask_rest_api_tutorial.html)
+El código para la API de Flask (carpeta `redcnn`) es una modificación de una parte de un tutorial propiedad de Pytorch [Link al tutorial](https://pytorch.org/tutorials/intermediate/flask_rest_api_tutorial.html)
 
 El repositorio se compone de dos proyectos en Flask:
 
-- `classifier-app`, que contiene una aplicación simple la cual recibe una
-  imagen y devuelve su clase de ImageNet mediante el llamado a una API.
-- `pytorch-api`, que corresponde a la API Rest. Dicho proyecto instancia un modelo DenseNet121
-  preentrenado y lo utiliza para predecir la clase correspondiente a la imagen que recibe por POST,
-  devolviendo un JSON con la clase predicha.
+- `buscador`, que contiene una aplicación simple la cual recibe una
+  imagen y devuelve las 3 imágenes más parecidas mediante el llamado a una API.
+- `redcnn`, que corresponde a la API Rest. Dicho proyecto instancia un modelo DenseNet121
+  preentrenado y lo utiliza para obtener el vector de características de la imagen que recibe por POST,
+  devolviendo un archivo con el vector calculado.
 
 ## Instrucciones
 
@@ -18,6 +18,7 @@ El repositorio se compone de dos proyectos en Flask:
   
   ```bash
    conda install flask
+   conda install python-dotenv -c conda-forge
    conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch 
   ```
 
@@ -27,14 +28,14 @@ El repositorio se compone de dos proyectos en Flask:
 - En un primer terminal, levantar la API.
   
   ```bash
-   cd pytorch-api
+   cd redcnn
    python main.py
   ```
 
 - En un segundo terminal, levantar la app de frontend:
   
   ```bash
-   cd classifier-app
+   cd buscador
    python main.py
   ```
 

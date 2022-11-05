@@ -1,6 +1,11 @@
-from flask import Flask
+import os
 
-UPLOAD_FOLDER = 'static/uploads/'
+from flask import Flask
+from dotenv import load_dotenv
+
+load_dotenv()
+
+UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER')
 
 app = Flask(__name__)
 app.secret_key = "secret key"

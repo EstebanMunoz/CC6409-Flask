@@ -1,7 +1,9 @@
-from app import model, imagenet_class_index, feature_extractor
 import io
-import torchvision.transforms as transforms
+
 from PIL import Image
+import torchvision.transforms as transforms
+
+from app import feature_extractor
 
 
 def transform_image(image_bytes):
@@ -13,14 +15,6 @@ def transform_image(image_bytes):
                                             [0.229, 0.224, 0.225])])
     image = Image.open(io.BytesIO(image_bytes))
     return my_transforms(image).unsqueeze(0)
-
-
-def get_prediction(image_bytes):
-    tensor = transform_image(image_bytes=image_bytes)
-    outputs = model.forward(tensor)
-    _, y_hat = outputs.max(1)
-    predicted_idx = str(y_hat.item())
-    return imagenet_class_index[predicted_idx]
 
 
 # out será un diccionario{'bloque': tensor}

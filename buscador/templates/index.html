@@ -12,17 +12,26 @@
 <div id="clf-container">
     <h1>ImageNet Classifier App</h1>
     <div>
-        Aplicación de ejemplo para CC6409. El formulario recibe una imagen y le asocia su clase de ImageNet según
-        DenseNet121 a través de un llamado a una API, también en Flask.
+        Aplicación para Minicontrol 4 de CC6409. El formulario recibe una imagen y entrega
+        las 3 imágenes más parecidas de un catálogo de imágenes, usando como vector de
+        características una capa de la red DenseNet121 a través de un llamado a una API, también en Flask.
     </div>
     <form action="\" class="form-classifier" enctype="multipart/form-data" method="post">
         <input autocomplete="off" name="file" required type="file">
         <button class="hvr-grow-shadow" type="submit">Enviar</button>
     </form>
     {% if filename %}
+    Imagen original:
+    <img alt="Uploaded image" class="uploaded-image" src="{{ url_for('display_image' , filename=filename) }}">
     {% if result['closest_filename'] is not none %}
-    Match predicho:
-    <img alt="Uploaded image" class="uploaded-image" src="{{ url_for('display_image' , filename=result['closest_filename']) }}">
+    Productos más parecidos:
+    <div class="catalog-images">
+        {% for img in result['closest_filename'] %}
+        <div>
+            <img alt="Match" src="{{ url_for('display_match' , filename=img) }}">
+        </div>
+        {% endfor %}
+    </div>
     {% else %}
     <div class="response response-error">
         Error de predicción. No se encontró ningún match.
@@ -31,8 +40,6 @@
         {% endif %}
     </div>
     {% endif %}
-    Imagen original:
-    <img alt="Uploaded image" class="uploaded-image" src="{{ url_for('display_image' , filename=filename) }}">
     {% endif %}
     {% if not filename and error %}
     <div class="response response-ok">

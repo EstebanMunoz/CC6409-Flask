@@ -2,9 +2,14 @@ import os
 import pickle
 
 import numpy as np
+from dotenv import load_dotenv
 
 from utils import get_features
 
+
+load_dotenv()
+CATALOG_PATH = os.getenv('CATALOG_PATH')
+FEATURES_PATH = os.getenv('FEATURES_PATH')
 
 def get_dataset_features(catalog_path):
     img_dirs = sorted(os.listdir(catalog_path))
@@ -22,7 +27,7 @@ def get_dataset_features(catalog_path):
 
 
 if __name__ == '__main__':
-    dataset_features, img_names = get_dataset_features('/media/disco-compartido/mc4/catalogo')
-    np.save('/home/usuario/git-repos/CC6409-Flask/classifier-app/dataset_features', dataset_features)
-    with open('/home/usuario/git-repos/CC6409-Flask/classifier-app/img_names.pickle', 'wb') as dir:
+    dataset_features, img_names = get_dataset_features(CATALOG_PATH)
+    np.save(f'{FEATURES_PATH}/dataset_features', dataset_features)
+    with open(f'{FEATURES_PATH}/img_names.pickle', 'wb') as dir:
         pickle.dump(img_names, dir)

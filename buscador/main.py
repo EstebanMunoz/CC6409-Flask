@@ -1,13 +1,21 @@
 import os
-import json
-from app import app, API_URL
-import requests
-from flask import request, redirect, url_for, render_template
-from werkzeug.utils import secure_filename
-from utils import allowed_file, get_closest_match
-import secrets
-import torch
 import io
+import secrets
+import requests
+
+from flask import request, redirect, url_for, render_template, send_from_directory
+from werkzeug.utils import secure_filename
+from dotenv import load_dotenv
+import torch
+
+from app import app, API_URL
+from utils import allowed_file, get_closest_match
+
+
+load_dotenv()
+
+CATALOG_PATH = os.getenv('CATALOG_PATH')
+
 
 @app.route('/')
 def index_form():
@@ -33,9 +41,8 @@ def index_image():
         if apicall.status_code == 200:
             error = None
             features = torch.load(io.BytesIO(apicall.content))
-            print(features)
-            closest_filename = get_closest_match(features)
-            result = {'closest_filename': closest_filename}
+            closest_match = get_closest_match(features)
+            result = {'closest_filename': closest_match}
         else:
             error = 'Error al procesar la imagen'
             result = None
@@ -48,6 +55,11 @@ def index_image():
 @app.route('/display/<filename>')
 def display_image(filename):
     return redirect(url_for('static', filename='uploads/' + filename), code=301)
+
+
+@app.route('/catalogo/<filename>')
+def display_match(filename):
+    return send_from_directory(CATALOG_PATH, filename)
 
 
 if __name__ == "__main__":
